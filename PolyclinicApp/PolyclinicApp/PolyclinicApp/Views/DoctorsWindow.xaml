@@ -1,0 +1,142 @@
+﻿<Window x:Class="PolyclinicApp.Views.DoctorsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Врачи"
+        Height="620"
+        Width="950"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <Grid Background="#F5F5F5" Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Справочник врачей"
+                   FontSize="26"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,20"/>
+
+        <materialDesign:Card Grid.Row="1"
+                             Padding="18"
+                             Margin="0,0,0,18">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="130"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="LastNameTextBox"
+                         Grid.Column="0"
+                         Margin="0,0,10,0"
+                         materialDesign:HintAssist.Hint="Фамилия"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <TextBox x:Name="FirstNameTextBox"
+                         Grid.Column="1"
+                         Margin="0,0,10,0"
+                         materialDesign:HintAssist.Hint="Имя"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <TextBox x:Name="MiddleNameTextBox"
+                         Grid.Column="2"
+                         Margin="0,0,10,0"
+                         materialDesign:HintAssist.Hint="Отчество"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <ComboBox x:Name="SpecialityComboBox"
+                          Grid.Column="3"
+                          Margin="0,0,10,0"
+                          materialDesign:HintAssist.Hint="Специальность"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          DisplayMemberPath="Название"
+                          SelectedValuePath="ID_специальности"/>
+
+                <Button Grid.Column="4"
+                        Content="Очистить"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="ClearButton_Click"/>
+            </Grid>
+        </materialDesign:Card>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        Margin="0,0,0,12">
+
+                <Button Content="Добавить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="AddButton_Click"/>
+
+                <Button Content="Изменить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="EditButton_Click"/>
+
+                <Button Content="Удалить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="DeleteButton_Click"/>
+
+                <TextBox x:Name="SearchTextBox"
+                         Width="280"
+                         Margin="20,0,10,0"
+                         materialDesign:HintAssist.Hint="Поиск по фамилии"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         TextChanged="SearchTextBox_TextChanged"/>
+
+                <Button Content="Обновить"
+                        Width="130"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="RefreshButton_Click"/>
+            </StackPanel>
+
+            <ListView x:Name="DoctorsListView"
+                      Grid.Row="1"
+                      SelectionChanged="DoctorsListView_SelectionChanged">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID"
+                                        Width="60"
+                                        DisplayMemberBinding="{Binding DoctorId}"/>
+
+                        <GridViewColumn Header="Фамилия"
+                                        Width="160"
+                                        DisplayMemberBinding="{Binding LastName}"/>
+
+                        <GridViewColumn Header="Имя"
+                                        Width="140"
+                                        DisplayMemberBinding="{Binding FirstName}"/>
+
+                        <GridViewColumn Header="Отчество"
+                                        Width="160"
+                                        DisplayMemberBinding="{Binding MiddleName}"/>
+
+                        <GridViewColumn Header="Специальность"
+                                        Width="250"
+                                        DisplayMemberBinding="{Binding SpecialityName}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

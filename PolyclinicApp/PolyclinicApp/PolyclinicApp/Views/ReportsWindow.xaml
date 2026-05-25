@@ -1,0 +1,429 @@
+﻿<Window x:Class="PolyclinicApp.Views.ReportsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Отчёты"
+        Height="800"
+        Width="1320"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <Grid Background="#F5F5F5" Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Отчёты информационной системы"
+                   FontSize="26"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,20"/>
+
+        <TabControl Grid.Row="1"
+                    Style="{StaticResource MaterialDesignTabControl}">
+
+            <!-- ===================================================== -->
+            <!-- 1. ПРИЁМЫ ЗА ПЕРИОД -->
+            <!-- ===================================================== -->
+            <TabItem Header="Приёмы за период">
+                <Grid Margin="10">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <materialDesign:Card Grid.Row="0"
+                                         Padding="16"
+                                         Margin="0,0,0,14">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.5*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <DatePicker x:Name="AppointmentsFromDatePicker"
+                                        Grid.Column="0"
+                                        Margin="0,0,10,0"
+                                        materialDesign:HintAssist.Hint="Дата с"
+                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+                            <DatePicker x:Name="AppointmentsToDatePicker"
+                                        Grid.Column="1"
+                                        Margin="0,0,10,0"
+                                        materialDesign:HintAssist.Hint="Дата по"
+                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+                            <ComboBox x:Name="AppointmentsStatusComboBox"
+                                      Grid.Column="2"
+                                      Margin="0,0,10,0"
+                                      materialDesign:HintAssist.Hint="Статус"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Id"/>
+
+                            <Button Grid.Column="3"
+                                    Content="Сформировать"
+                                    Margin="0,0,10,0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Click="LoadAppointmentsReportButton_Click"/>
+
+
+                            <Button Grid.Column="4"
+        Content="PDF для печати"
+        Margin="0,0,10,0"
+        Style="{StaticResource MaterialDesignRaisedButton}"
+        Click="ExportAppointmentsPdfButton_Click"/>
+
+                            <TextBlock x:Name="AppointmentsSummaryTextBlock"
+           Grid.Column="5"
+           VerticalAlignment="Center"
+           Foreground="Gray"
+           FontSize="14"
+           Text="Записей: 0"/>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    <ListView x:Name="AppointmentsReportListView"
+                              Grid.Row="1">
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID"
+                                                Width="55"
+                                                DisplayMemberBinding="{Binding AppointmentId}"/>
+
+                                <GridViewColumn Header="Дата и время"
+                                                Width="150"
+                                                DisplayMemberBinding="{Binding DateTimeText}"/>
+
+                                <GridViewColumn Header="Пациент"
+                                                Width="230"
+                                                DisplayMemberBinding="{Binding PatientName}"/>
+
+                                <GridViewColumn Header="Врач"
+                                                Width="230"
+                                                DisplayMemberBinding="{Binding DoctorName}"/>
+
+                                <GridViewColumn Header="Кабинет"
+                                                Width="120"
+                                                DisplayMemberBinding="{Binding CabinetName}"/>
+
+                                <GridViewColumn Header="Статус"
+                                                Width="120"
+                                                DisplayMemberBinding="{Binding StatusText}"/>
+
+                                <GridViewColumn Header="Жалобы"
+                                                Width="300"
+                                                DisplayMemberBinding="{Binding Complaints}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================================================== -->
+            <!-- 2. ЗАГРУЖЕННОСТЬ ВРАЧЕЙ -->
+            <!-- ===================================================== -->
+            <TabItem Header="Загруженность врачей">
+                <Grid Margin="10">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <materialDesign:Card Grid.Row="0"
+                                         Padding="16"
+                                         Margin="0,0,0,14">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <DatePicker x:Name="DoctorsFromDatePicker"
+                                        Grid.Column="0"
+                                        Margin="0,0,10,0"
+                                        materialDesign:HintAssist.Hint="Дата с"
+                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+                            <DatePicker x:Name="DoctorsToDatePicker"
+                                        Grid.Column="1"
+                                        Margin="0,0,10,0"
+                                        materialDesign:HintAssist.Hint="Дата по"
+                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+                            <Button Grid.Column="2"
+                                    Content="Сформировать"
+                                    Margin="0,0,10,0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Click="LoadDoctorsWorkloadButton_Click"/>
+                            <Button Grid.Column="2"
+        Content="PDF для печати"
+        Margin="263,9,219,9"
+        Style="{StaticResource MaterialDesignRaisedButton}"
+        Click="ExportDoctorsWorkloadPdfButton_Click" Grid.ColumnSpan="2"/>
+
+                            <TextBlock x:Name="DoctorsSummaryTextBlock"
+                                       Grid.Column="3"
+                                       VerticalAlignment="Center"
+                                       Foreground="Gray"
+                                       FontSize="14"
+                                       Text="Врачей: 0" Margin="225,0,0,0"/>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    <ListView x:Name="DoctorsWorkloadListView"
+                              Grid.Row="1">
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID врача"
+                                                Width="80"
+                                                DisplayMemberBinding="{Binding DoctorId}"/>
+
+                                <GridViewColumn Header="Врач"
+                                                Width="240"
+                                                DisplayMemberBinding="{Binding DoctorName}"/>
+
+                                <GridViewColumn Header="Специальность"
+                                                Width="180"
+                                                DisplayMemberBinding="{Binding SpecialityName}"/>
+
+                                <GridViewColumn Header="Всего приёмов"
+                                                Width="120"
+                                                DisplayMemberBinding="{Binding TotalAppointments}"/>
+
+                                <GridViewColumn Header="Назначено"
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding AssignedCount}"/>
+
+                                <GridViewColumn Header="Завершено"
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding CompletedCount}"/>
+
+                                <GridViewColumn Header="Отменено"
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding CanceledCount}"/>
+
+                                <GridViewColumn Header="Назначений"
+                                                Width="110"
+                                                DisplayMemberBinding="{Binding PrescriptionsCount}"/>
+
+                                <GridViewColumn Header="Анализов"
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding LabResearchCount}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================================================== -->
+            <!-- 3. ИСТОРИЯ ПАЦИЕНТА -->
+            <!-- ===================================================== -->
+            <TabItem Header="История пациента">
+                <Grid Margin="10">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <materialDesign:Card Grid.Row="0"
+                                         Padding="16"
+                                         Margin="0,0,0,14">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2.5*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="PatientSearchTextBox"
+                                     Grid.Column="0"
+                                     Margin="0,0,10,0"
+                                     materialDesign:HintAssist.Hint="Поиск пациента"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     TextChanged="PatientSearchTextBox_TextChanged"/>
+
+                            <ComboBox x:Name="PatientComboBox"
+                                      Grid.Column="1"
+                                      Margin="0,0,10,0"
+                                      materialDesign:HintAssist.Hint="Пациент"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Id"/>
+
+                            <Button Grid.Column="2"
+                                    Content="Сформировать"
+                                    Margin="0,0,10,0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Click="LoadPatientHistoryButton_Click"/>
+                            <Button Grid.Column="2"
+        Content="PDF для печати"
+        Margin="191,9,173,9"
+        Style="{StaticResource MaterialDesignRaisedButton}"
+        Click="ExportPatientHistoryPdfButton_Click" Grid.ColumnSpan="2"/>
+
+                            <TextBlock x:Name="PatientHistorySummaryTextBlock"
+                                       Grid.Column="3"
+                                       VerticalAlignment="Center"
+                                       Foreground="Gray"
+                                       FontSize="14"
+                                       Text="Записей: 0" Margin="151,0,0,0"/>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    <ListView x:Name="PatientHistoryListView"
+                              Grid.Row="1">
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Дата"
+                                                Width="150"
+                                                DisplayMemberBinding="{Binding DateText}"/>
+
+                                <GridViewColumn Header="Тип записи"
+                                                Width="170"
+                                                DisplayMemberBinding="{Binding RecordType}"/>
+
+                                <GridViewColumn Header="Врач"
+                                                Width="230"
+                                                DisplayMemberBinding="{Binding DoctorName}"/>
+
+                                <GridViewColumn Header="Статус"
+                                                Width="130"
+                                                DisplayMemberBinding="{Binding StatusText}"/>
+
+                                <GridViewColumn Header="Описание"
+                                                Width="650"
+                                                DisplayMemberBinding="{Binding Description}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================================================== -->
+            <!-- 4. ЛАБОРАТОРИЯ -->
+            <!-- ===================================================== -->
+            <TabItem Header="Лаборатория">
+                <Grid Margin="10">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <materialDesign:Card Grid.Row="0"
+                                         Padding="16"
+                                         Margin="0,0,0,14">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.4*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <DatePicker x:Name="LabFromDatePicker"
+                                        Grid.Column="0"
+                                        Margin="0,0,10,0"
+                                        materialDesign:HintAssist.Hint="Дата с"
+                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+                            <DatePicker x:Name="LabToDatePicker"
+                                        Grid.Column="1"
+                                        Margin="0,0,10,0"
+                                        materialDesign:HintAssist.Hint="Дата по"
+                                        Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+                            <ComboBox x:Name="LabStatusComboBox"
+                                      Grid.Column="2"
+                                      Margin="0,0,10,0"
+                                      materialDesign:HintAssist.Hint="Статус"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Id"/>
+
+                            <Button Grid.Column="3"
+                                    Content="Сформировать"
+                                    Margin="0,0,10,0"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Click="LoadLabReportButton_Click"/>
+                            <Button Grid.Column="3"
+        Content="PDF для печати"
+        Margin="210,9,193,9"
+        Style="{StaticResource MaterialDesignRaisedButton}"
+        Click="ExportLabReportPdfButton_Click" Grid.ColumnSpan="2"/>
+
+                            <TextBlock x:Name="LabSummaryTextBlock"
+                                       Grid.Column="4"
+                                       VerticalAlignment="Center"
+                                       Foreground="Gray"
+                                       FontSize="14"
+                                       Text="Исследований: 0" Margin="163,0,0,0"/>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    <ListView x:Name="LabReportListView"
+                              Grid.Row="1">
+
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID"
+                                                Width="55"
+                                                DisplayMemberBinding="{Binding ResearchId}"/>
+
+                                <GridViewColumn Header="Тип анализа"
+                                                Width="220"
+                                                DisplayMemberBinding="{Binding AnalysisType}"/>
+
+                                <GridViewColumn Header="Пациент"
+                                                Width="220"
+                                                DisplayMemberBinding="{Binding PatientName}"/>
+
+                                <GridViewColumn Header="Врач"
+                                                Width="220"
+                                                DisplayMemberBinding="{Binding DoctorName}"/>
+
+                                <GridViewColumn Header="Дата назначения"
+                                                Width="140"
+                                                DisplayMemberBinding="{Binding OrderDateText}"/>
+
+                                <GridViewColumn Header="Дата выполнения"
+                                                Width="140"
+                                                DisplayMemberBinding="{Binding CompletionDateText}"/>
+
+                                <GridViewColumn Header="Статус"
+                                                Width="120"
+                                                DisplayMemberBinding="{Binding StatusText}"/>
+
+                                <GridViewColumn Header="Результат"
+                                                Width="330"
+                                                DisplayMemberBinding="{Binding Result}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>

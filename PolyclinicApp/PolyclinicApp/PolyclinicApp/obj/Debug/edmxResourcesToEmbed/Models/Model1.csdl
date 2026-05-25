@@ -1,0 +1,767 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ПоликлиникаModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Амбулаторная_карта">
+    <Key>
+      <PropertyRef Name="ID_карты" />
+    </Key>
+    <Property Name="ID_карты" Type="Int32" Nullable="false" />
+    <Property Name="Группа_крови" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="Аллергии" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Вредные_привычки" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Доп_информация" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Пациенты" Relationship="Self.FK__Амбулатор__ID_па__48CFD27E" FromRole="Амбулаторная_карта" ToRole="Пациенты" />
+  </EntityType>
+  <EntityType Name="Врачи">
+    <Key>
+      <PropertyRef Name="ID_врача" />
+    </Key>
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ID_специальности" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Специальности" Relationship="Self.FK__Врачи__ID_специа__398D8EEE" FromRole="Врачи" ToRole="Специальности" />
+    <NavigationProperty Name="Лабораторные_исследования" Relationship="Self.FK__Лаборатор__ID_вр__6A30C649" FromRole="Врачи" ToRole="Лабораторные_исследования" />
+    <NavigationProperty Name="Лекарственные_назначения" Relationship="Self.FK__Лекарстве__ID_вр__6383C8BA" FromRole="Врачи" ToRole="Лекарственные_назначения" />
+    <NavigationProperty Name="Медицинские_записи" Relationship="Self.FK__Медицинск__ID_вр__5DCAEF64" FromRole="Врачи" ToRole="Медицинские_записи" />
+    <NavigationProperty Name="Направления" Relationship="Self.FK__Направлен__ID_вр__5070F446" FromRole="Врачи" ToRole="Направления" />
+    <NavigationProperty Name="Направления1" Relationship="Self.FK__Направлен__ID_вр__5165187F" FromRole="Врачи" ToRole="Направления" />
+    <NavigationProperty Name="Пользователи" Relationship="Self.FK__Пользоват__ID_вр__6E01572D" FromRole="Врачи" ToRole="Пользователи" />
+    <NavigationProperty Name="Приёмы" Relationship="Self.FK__Приёмы__ID_врача__5629CD9C" FromRole="Врачи" ToRole="Приёмы" />
+    <NavigationProperty Name="Расписание" Relationship="Self.FK__Расписани__ID_вр__403A8C7D" FromRole="Врачи" ToRole="Расписание" />
+  </EntityType>
+  <EntityType Name="Диагнозы_МКБ10">
+    <Key>
+      <PropertyRef Name="Код_диагноза" />
+    </Key>
+    <Property Name="Код_диагноза" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Название" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Группа" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Приёмы" Relationship="Self.FK__Приёмы__Код_диаг__5812160E" FromRole="Диагнозы_МКБ10" ToRole="Приёмы" />
+  </EntityType>
+  <EntityType Name="Журнал_аудита">
+    <Key>
+      <PropertyRef Name="ID_записи" />
+    </Key>
+    <Property Name="ID_записи" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_пользователя" Type="Int32" Nullable="false" />
+    <Property Name="Таблица" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Операция" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="ID_записи_в_таблице" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Старое_значение" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Новое_значение" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IP_адрес" Type="String" MaxLength="45" FixedLength="false" Unicode="true" />
+    <Property Name="Дата_время" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Пользователи" Relationship="Self.FK__Журнал_ау__ID_по__70DDC3D8" FromRole="Журнал_аудита" ToRole="Пользователи" />
+  </EntityType>
+  <EntityType Name="Кабинеты">
+    <Key>
+      <PropertyRef Name="ID_кабинета" />
+    </Key>
+    <Property Name="ID_кабинета" Type="Int32" Nullable="false" />
+    <Property Name="Номер" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Корпус" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Телефон" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Приёмы" Relationship="Self.FK__Приёмы__ID_кабин__571DF1D5" FromRole="Кабинеты" ToRole="Приёмы" />
+    <NavigationProperty Name="Расписание" Relationship="Self.FK__Расписани__ID_ка__412EB0B6" FromRole="Кабинеты" ToRole="Расписание" />
+  </EntityType>
+  <EntityType Name="Лабораторные_исследования">
+    <Key>
+      <PropertyRef Name="ID_исследования" />
+    </Key>
+    <Property Name="ID_исследования" Type="Int32" Nullable="false" />
+    <Property Name="Тип_анализа" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Дата_назначения" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Дата_выполнения" Type="DateTime" Precision="3" />
+    <Property Name="Результат" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Статус" Type="Int32" Nullable="false" />
+    <Property Name="ID_приёма" Type="Int32" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Врачи" Relationship="Self.FK__Лаборатор__ID_вр__6A30C649" FromRole="Лабораторные_исследования" ToRole="Врачи" />
+    <NavigationProperty Name="Пациенты" Relationship="Self.FK__Лаборатор__ID_па__693CA210" FromRole="Лабораторные_исследования" ToRole="Пациенты" />
+    <NavigationProperty Name="Приёмы" Relationship="Self.FK__Лаборатор__ID_пр__68487DD7" FromRole="Лабораторные_исследования" ToRole="Приёмы" />
+  </EntityType>
+  <EntityType Name="Лекарственные_назначения">
+    <Key>
+      <PropertyRef Name="ID_назначения" />
+    </Key>
+    <Property Name="ID_назначения" Type="Int32" Nullable="false" />
+    <Property Name="Лекарство" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Дозировка" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Период_приёма" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Статус" Type="Int32" Nullable="false" />
+    <Property Name="ID_приёма" Type="Int32" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Врачи" Relationship="Self.FK__Лекарстве__ID_вр__6383C8BA" FromRole="Лекарственные_назначения" ToRole="Врачи" />
+    <NavigationProperty Name="Пациенты" Relationship="Self.FK__Лекарстве__ID_па__628FA481" FromRole="Лекарственные_назначения" ToRole="Пациенты" />
+    <NavigationProperty Name="Приёмы" Relationship="Self.FK__Лекарстве__ID_пр__619B8048" FromRole="Лекарственные_назначения" ToRole="Приёмы" />
+  </EntityType>
+  <EntityType Name="Медицинские_записи">
+    <Key>
+      <PropertyRef Name="ID_записи" />
+    </Key>
+    <Property Name="ID_записи" Type="Int32" Nullable="false" />
+    <Property Name="Дата_время" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Содержание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Врачи" Relationship="Self.FK__Медицинск__ID_вр__5DCAEF64" FromRole="Медицинские_записи" ToRole="Врачи" />
+    <NavigationProperty Name="Пациенты" Relationship="Self.FK__Медицинск__ID_па__5CD6CB2B" FromRole="Медицинские_записи" ToRole="Пациенты" />
+  </EntityType>
+  <EntityType Name="Направления">
+    <Key>
+      <PropertyRef Name="ID_направления" />
+    </Key>
+    <Property Name="ID_направления" Type="Int32" Nullable="false" />
+    <Property Name="Номер" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Дата_выдачи" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Срок_действия" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Цель" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Статус" Type="Int32" Nullable="false" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача_направившего" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача_к_которому" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Врачи" Relationship="Self.FK__Направлен__ID_вр__5070F446" FromRole="Направления" ToRole="Врачи" />
+    <NavigationProperty Name="Врачи1" Relationship="Self.FK__Направлен__ID_вр__5165187F" FromRole="Направления" ToRole="Врачи" />
+    <NavigationProperty Name="Пациенты" Relationship="Self.FK__Направлен__ID_па__4F7CD00D" FromRole="Направления" ToRole="Пациенты" />
+    <NavigationProperty Name="Приёмы" Relationship="Self.FK__Приёмы__ID_напра__59063A47" FromRole="Направления" ToRole="Приёмы" />
+  </EntityType>
+  <EntityType Name="Пациенты">
+    <Key>
+      <PropertyRef Name="ID_пациента" />
+    </Key>
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Дата_рождения" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Пол" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="СНИЛС" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+    <Property Name="Телефон" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Амбулаторная_карта" Relationship="Self.FK__Амбулатор__ID_па__48CFD27E" FromRole="Пациенты" ToRole="Амбулаторная_карта" />
+    <NavigationProperty Name="Лабораторные_исследования" Relationship="Self.FK__Лаборатор__ID_па__693CA210" FromRole="Пациенты" ToRole="Лабораторные_исследования" />
+    <NavigationProperty Name="Лекарственные_назначения" Relationship="Self.FK__Лекарстве__ID_па__628FA481" FromRole="Пациенты" ToRole="Лекарственные_назначения" />
+    <NavigationProperty Name="Медицинские_записи" Relationship="Self.FK__Медицинск__ID_па__5CD6CB2B" FromRole="Пациенты" ToRole="Медицинские_записи" />
+    <NavigationProperty Name="Направления" Relationship="Self.FK__Направлен__ID_па__4F7CD00D" FromRole="Пациенты" ToRole="Направления" />
+    <NavigationProperty Name="Приёмы" Relationship="Self.FK__Приёмы__ID_пацие__5535A963" FromRole="Пациенты" ToRole="Приёмы" />
+  </EntityType>
+  <EntityType Name="Пользователи">
+    <Key>
+      <PropertyRef Name="ID_пользователя" />
+    </Key>
+    <Property Name="ID_пользователя" Type="Int32" Nullable="false" />
+    <Property Name="Логин" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Хеш_пароля" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Роль" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" />
+    <NavigationProperty Name="Врачи" Relationship="Self.FK__Пользоват__ID_вр__6E01572D" FromRole="Пользователи" ToRole="Врачи" />
+    <NavigationProperty Name="Журнал_аудита" Relationship="Self.FK__Журнал_ау__ID_по__70DDC3D8" FromRole="Пользователи" ToRole="Журнал_аудита" />
+    <NavigationProperty Name="Роли" Relationship="Self.FK_Пользователи_Роли" FromRole="Пользователи" ToRole="Роли" />
+  </EntityType>
+  <EntityType Name="Приёмы">
+    <Key>
+      <PropertyRef Name="ID_приёма" />
+    </Key>
+    <Property Name="ID_приёма" Type="Int32" Nullable="false" />
+    <Property Name="Дата_время" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Статус" Type="Int32" Nullable="false" />
+    <Property Name="Жалобы" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Примечание_врача" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+    <Property Name="ID_кабинета" Type="Int32" Nullable="false" />
+    <Property Name="Код_диагноза" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ID_направления" Type="Int32" />
+    <NavigationProperty Name="Врачи" Relationship="Self.FK__Приёмы__ID_врача__5629CD9C" FromRole="Приёмы" ToRole="Врачи" />
+    <NavigationProperty Name="Диагнозы_МКБ10" Relationship="Self.FK__Приёмы__Код_диаг__5812160E" FromRole="Приёмы" ToRole="Диагнозы_МКБ10" />
+    <NavigationProperty Name="Кабинеты" Relationship="Self.FK__Приёмы__ID_кабин__571DF1D5" FromRole="Приёмы" ToRole="Кабинеты" />
+    <NavigationProperty Name="Лабораторные_исследования" Relationship="Self.FK__Лаборатор__ID_пр__68487DD7" FromRole="Приёмы" ToRole="Лабораторные_исследования" />
+    <NavigationProperty Name="Лекарственные_назначения" Relationship="Self.FK__Лекарстве__ID_пр__619B8048" FromRole="Приёмы" ToRole="Лекарственные_назначения" />
+    <NavigationProperty Name="Направления" Relationship="Self.FK__Приёмы__ID_напра__59063A47" FromRole="Приёмы" ToRole="Направления" />
+    <NavigationProperty Name="Пациенты" Relationship="Self.FK__Приёмы__ID_пацие__5535A963" FromRole="Приёмы" ToRole="Пациенты" />
+  </EntityType>
+  <EntityType Name="Расписание">
+    <Key>
+      <PropertyRef Name="ID_расписания" />
+    </Key>
+    <Property Name="ID_расписания" Type="Int32" Nullable="false" />
+    <Property Name="День_недели" Type="Int32" Nullable="false" />
+    <Property Name="Время_начала" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Время_окончания" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Активно" Type="Boolean" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+    <Property Name="ID_кабинета" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Врачи" Relationship="Self.FK__Расписани__ID_вр__403A8C7D" FromRole="Расписание" ToRole="Врачи" />
+    <NavigationProperty Name="Кабинеты" Relationship="Self.FK__Расписани__ID_ка__412EB0B6" FromRole="Расписание" ToRole="Кабинеты" />
+  </EntityType>
+  <EntityType Name="Роли">
+    <Key>
+      <PropertyRef Name="ID_роли" />
+    </Key>
+    <Property Name="ID_роли" Type="Int32" Nullable="false" />
+    <Property Name="Название" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Описание" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Пользователи" Relationship="Self.FK_Пользователи_Роли" FromRole="Роли" ToRole="Пользователи" />
+  </EntityType>
+  <EntityType Name="Специальности">
+    <Key>
+      <PropertyRef Name="ID_специальности" />
+    </Key>
+    <Property Name="ID_специальности" Type="Int32" Nullable="false" />
+    <Property Name="Название" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Врачи" Relationship="Self.FK__Врачи__ID_специа__398D8EEE" FromRole="Специальности" ToRole="Врачи" />
+  </EntityType>
+  <EntityType Name="View_Appointments_Doctor">
+    <Key>
+      <PropertyRef Name="ID_приёма" />
+      <PropertyRef Name="Дата_время" />
+      <PropertyRef Name="Статус" />
+      <PropertyRef Name="ID_пациента" />
+      <PropertyRef Name="ID_врача" />
+      <PropertyRef Name="ID_кабинета" />
+    </Key>
+    <Property Name="ID_приёма" Type="Int32" Nullable="false" />
+    <Property Name="Дата_время" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Статус" Type="Int32" Nullable="false" />
+    <Property Name="Жалобы" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Примечание_врача" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+    <Property Name="ID_кабинета" Type="Int32" Nullable="false" />
+    <Property Name="Код_диагноза" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ID_направления" Type="Int32" />
+  </EntityType>
+  <EntityType Name="View_LabOrders_Doctor">
+    <Key>
+      <PropertyRef Name="ID_исследования" />
+      <PropertyRef Name="Тип_анализа" />
+      <PropertyRef Name="Дата_назначения" />
+      <PropertyRef Name="Статус" />
+      <PropertyRef Name="ID_пациента" />
+      <PropertyRef Name="ID_врача" />
+    </Key>
+    <Property Name="ID_исследования" Type="Int32" Nullable="false" />
+    <Property Name="Тип_анализа" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Дата_назначения" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Дата_выполнения" Type="DateTime" Precision="3" />
+    <Property Name="Результат" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Статус" Type="Int32" Nullable="false" />
+    <Property Name="ID_приёма" Type="Int32" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="View_LabOrders_Pending">
+    <Key>
+      <PropertyRef Name="ID_исследования" />
+      <PropertyRef Name="Тип_анализа" />
+      <PropertyRef Name="Дата_назначения" />
+      <PropertyRef Name="Статус" />
+      <PropertyRef Name="ID_пациента" />
+      <PropertyRef Name="ID_врача" />
+    </Key>
+    <Property Name="ID_исследования" Type="Int32" Nullable="false" />
+    <Property Name="Тип_анализа" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Дата_назначения" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Дата_выполнения" Type="DateTime" Precision="3" />
+    <Property Name="Результат" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Статус" Type="Int32" Nullable="false" />
+    <Property Name="ID_приёма" Type="Int32" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="View_MedicalNotes_Doctor">
+    <Key>
+      <PropertyRef Name="ID_записи" />
+      <PropertyRef Name="Дата_время" />
+      <PropertyRef Name="Содержание" />
+      <PropertyRef Name="ID_пациента" />
+      <PropertyRef Name="ID_врача" />
+    </Key>
+    <Property Name="ID_записи" Type="Int32" Nullable="false" />
+    <Property Name="Дата_время" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Содержание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="View_Prescriptions_Doctor">
+    <Key>
+      <PropertyRef Name="ID_назначения" />
+      <PropertyRef Name="Лекарство" />
+      <PropertyRef Name="Дозировка" />
+      <PropertyRef Name="Статус" />
+      <PropertyRef Name="ID_пациента" />
+      <PropertyRef Name="ID_врача" />
+    </Key>
+    <Property Name="ID_назначения" Type="Int32" Nullable="false" />
+    <Property Name="Лекарство" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Дозировка" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Период_приёма" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Статус" Type="Int32" Nullable="false" />
+    <Property Name="ID_приёма" Type="Int32" />
+    <Property Name="ID_пациента" Type="Int32" Nullable="false" />
+    <Property Name="ID_врача" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Амбулатор__ID_па__48CFD27E">
+    <End Role="Пациенты" Type="Self.Пациенты" Multiplicity="1" />
+    <End Role="Амбулаторная_карта" Type="Self.Амбулаторная_карта" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Пациенты">
+        <PropertyRef Name="ID_пациента" />
+      </Principal>
+      <Dependent Role="Амбулаторная_карта">
+        <PropertyRef Name="ID_пациента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Врачи__ID_специа__398D8EEE">
+    <End Role="Специальности" Type="Self.Специальности" Multiplicity="1" />
+    <End Role="Врачи" Type="Self.Врачи" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Специальности">
+        <PropertyRef Name="ID_специальности" />
+      </Principal>
+      <Dependent Role="Врачи">
+        <PropertyRef Name="ID_специальности" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Лаборатор__ID_вр__6A30C649">
+    <End Role="Врачи" Type="Self.Врачи" Multiplicity="1" />
+    <End Role="Лабораторные_исследования" Type="Self.Лабораторные_исследования" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Врачи">
+        <PropertyRef Name="ID_врача" />
+      </Principal>
+      <Dependent Role="Лабораторные_исследования">
+        <PropertyRef Name="ID_врача" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Лекарстве__ID_вр__6383C8BA">
+    <End Role="Врачи" Type="Self.Врачи" Multiplicity="1" />
+    <End Role="Лекарственные_назначения" Type="Self.Лекарственные_назначения" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Врачи">
+        <PropertyRef Name="ID_врача" />
+      </Principal>
+      <Dependent Role="Лекарственные_назначения">
+        <PropertyRef Name="ID_врача" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Медицинск__ID_вр__5DCAEF64">
+    <End Role="Врачи" Type="Self.Врачи" Multiplicity="1" />
+    <End Role="Медицинские_записи" Type="Self.Медицинские_записи" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Врачи">
+        <PropertyRef Name="ID_врача" />
+      </Principal>
+      <Dependent Role="Медицинские_записи">
+        <PropertyRef Name="ID_врача" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Направлен__ID_вр__5070F446">
+    <End Role="Врачи" Type="Self.Врачи" Multiplicity="1" />
+    <End Role="Направления" Type="Self.Направления" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Врачи">
+        <PropertyRef Name="ID_врача" />
+      </Principal>
+      <Dependent Role="Направления">
+        <PropertyRef Name="ID_врача_направившего" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Направлен__ID_вр__5165187F">
+    <End Role="Врачи" Type="Self.Врачи" Multiplicity="1" />
+    <End Role="Направления" Type="Self.Направления" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Врачи">
+        <PropertyRef Name="ID_врача" />
+      </Principal>
+      <Dependent Role="Направления">
+        <PropertyRef Name="ID_врача_к_которому" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Пользоват__ID_вр__6E01572D">
+    <End Role="Врачи" Type="Self.Врачи" Multiplicity="0..1" />
+    <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Врачи">
+        <PropertyRef Name="ID_врача" />
+      </Principal>
+      <Dependent Role="Пользователи">
+        <PropertyRef Name="ID_врача" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Приёмы__ID_врача__5629CD9C">
+    <End Role="Врачи" Type="Self.Врачи" Multiplicity="1" />
+    <End Role="Приёмы" Type="Self.Приёмы" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Врачи">
+        <PropertyRef Name="ID_врача" />
+      </Principal>
+      <Dependent Role="Приёмы">
+        <PropertyRef Name="ID_врача" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Расписани__ID_вр__403A8C7D">
+    <End Role="Врачи" Type="Self.Врачи" Multiplicity="1" />
+    <End Role="Расписание" Type="Self.Расписание" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Врачи">
+        <PropertyRef Name="ID_врача" />
+      </Principal>
+      <Dependent Role="Расписание">
+        <PropertyRef Name="ID_врача" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Приёмы__Код_диаг__5812160E">
+    <End Role="Диагнозы_МКБ10" Type="Self.Диагнозы_МКБ10" Multiplicity="0..1" />
+    <End Role="Приёмы" Type="Self.Приёмы" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Диагнозы_МКБ10">
+        <PropertyRef Name="Код_диагноза" />
+      </Principal>
+      <Dependent Role="Приёмы">
+        <PropertyRef Name="Код_диагноза" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Журнал_ау__ID_по__70DDC3D8">
+    <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="1" />
+    <End Role="Журнал_аудита" Type="Self.Журнал_аудита" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Пользователи">
+        <PropertyRef Name="ID_пользователя" />
+      </Principal>
+      <Dependent Role="Журнал_аудита">
+        <PropertyRef Name="ID_пользователя" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Приёмы__ID_кабин__571DF1D5">
+    <End Role="Кабинеты" Type="Self.Кабинеты" Multiplicity="1" />
+    <End Role="Приёмы" Type="Self.Приёмы" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Кабинеты">
+        <PropertyRef Name="ID_кабинета" />
+      </Principal>
+      <Dependent Role="Приёмы">
+        <PropertyRef Name="ID_кабинета" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Расписани__ID_ка__412EB0B6">
+    <End Role="Кабинеты" Type="Self.Кабинеты" Multiplicity="1" />
+    <End Role="Расписание" Type="Self.Расписание" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Кабинеты">
+        <PropertyRef Name="ID_кабинета" />
+      </Principal>
+      <Dependent Role="Расписание">
+        <PropertyRef Name="ID_кабинета" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Лаборатор__ID_па__693CA210">
+    <End Role="Пациенты" Type="Self.Пациенты" Multiplicity="1" />
+    <End Role="Лабораторные_исследования" Type="Self.Лабораторные_исследования" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Пациенты">
+        <PropertyRef Name="ID_пациента" />
+      </Principal>
+      <Dependent Role="Лабораторные_исследования">
+        <PropertyRef Name="ID_пациента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Лаборатор__ID_пр__68487DD7">
+    <End Role="Приёмы" Type="Self.Приёмы" Multiplicity="0..1" />
+    <End Role="Лабораторные_исследования" Type="Self.Лабораторные_исследования" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Приёмы">
+        <PropertyRef Name="ID_приёма" />
+      </Principal>
+      <Dependent Role="Лабораторные_исследования">
+        <PropertyRef Name="ID_приёма" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Лекарстве__ID_па__628FA481">
+    <End Role="Пациенты" Type="Self.Пациенты" Multiplicity="1" />
+    <End Role="Лекарственные_назначения" Type="Self.Лекарственные_назначения" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Пациенты">
+        <PropertyRef Name="ID_пациента" />
+      </Principal>
+      <Dependent Role="Лекарственные_назначения">
+        <PropertyRef Name="ID_пациента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Лекарстве__ID_пр__619B8048">
+    <End Role="Приёмы" Type="Self.Приёмы" Multiplicity="0..1" />
+    <End Role="Лекарственные_назначения" Type="Self.Лекарственные_назначения" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Приёмы">
+        <PropertyRef Name="ID_приёма" />
+      </Principal>
+      <Dependent Role="Лекарственные_назначения">
+        <PropertyRef Name="ID_приёма" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Медицинск__ID_па__5CD6CB2B">
+    <End Role="Пациенты" Type="Self.Пациенты" Multiplicity="1" />
+    <End Role="Медицинские_записи" Type="Self.Медицинские_записи" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Пациенты">
+        <PropertyRef Name="ID_пациента" />
+      </Principal>
+      <Dependent Role="Медицинские_записи">
+        <PropertyRef Name="ID_пациента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Направлен__ID_па__4F7CD00D">
+    <End Role="Пациенты" Type="Self.Пациенты" Multiplicity="1" />
+    <End Role="Направления" Type="Self.Направления" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Пациенты">
+        <PropertyRef Name="ID_пациента" />
+      </Principal>
+      <Dependent Role="Направления">
+        <PropertyRef Name="ID_пациента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Приёмы__ID_напра__59063A47">
+    <End Role="Направления" Type="Self.Направления" Multiplicity="0..1" />
+    <End Role="Приёмы" Type="Self.Приёмы" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Направления">
+        <PropertyRef Name="ID_направления" />
+      </Principal>
+      <Dependent Role="Приёмы">
+        <PropertyRef Name="ID_направления" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Приёмы__ID_пацие__5535A963">
+    <End Role="Пациенты" Type="Self.Пациенты" Multiplicity="1" />
+    <End Role="Приёмы" Type="Self.Приёмы" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Пациенты">
+        <PropertyRef Name="ID_пациента" />
+      </Principal>
+      <Dependent Role="Приёмы">
+        <PropertyRef Name="ID_пациента" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Пользователи_Роли">
+    <End Role="Роли" Type="Self.Роли" Multiplicity="1" />
+    <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Роли">
+        <PropertyRef Name="ID_роли" />
+      </Principal>
+      <Dependent Role="Пользователи">
+        <PropertyRef Name="Роль" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ПоликлиникаEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Амбулаторная_карта" EntityType="Self.Амбулаторная_карта" />
+    <EntitySet Name="Врачи" EntityType="Self.Врачи" />
+    <EntitySet Name="Диагнозы_МКБ10" EntityType="Self.Диагнозы_МКБ10" />
+    <EntitySet Name="Журнал_аудита" EntityType="Self.Журнал_аудита" />
+    <EntitySet Name="Кабинеты" EntityType="Self.Кабинеты" />
+    <EntitySet Name="Лабораторные_исследования" EntityType="Self.Лабораторные_исследования" />
+    <EntitySet Name="Лекарственные_назначения" EntityType="Self.Лекарственные_назначения" />
+    <EntitySet Name="Медицинские_записи" EntityType="Self.Медицинские_записи" />
+    <EntitySet Name="Направления" EntityType="Self.Направления" />
+    <EntitySet Name="Пациенты" EntityType="Self.Пациенты" />
+    <EntitySet Name="Пользователи" EntityType="Self.Пользователи" />
+    <EntitySet Name="Приёмы" EntityType="Self.Приёмы" />
+    <EntitySet Name="Расписание" EntityType="Self.Расписание" />
+    <EntitySet Name="Роли" EntityType="Self.Роли" />
+    <EntitySet Name="Специальности" EntityType="Self.Специальности" />
+    <EntitySet Name="View_Appointments_Doctor" EntityType="Self.View_Appointments_Doctor" />
+    <EntitySet Name="View_LabOrders_Doctor" EntityType="Self.View_LabOrders_Doctor" />
+    <EntitySet Name="View_LabOrders_Pending" EntityType="Self.View_LabOrders_Pending" />
+    <EntitySet Name="View_MedicalNotes_Doctor" EntityType="Self.View_MedicalNotes_Doctor" />
+    <EntitySet Name="View_Prescriptions_Doctor" EntityType="Self.View_Prescriptions_Doctor" />
+    <AssociationSet Name="FK__Амбулатор__ID_па__48CFD27E" Association="Self.FK__Амбулатор__ID_па__48CFD27E">
+      <End Role="Пациенты" EntitySet="Пациенты" />
+      <End Role="Амбулаторная_карта" EntitySet="Амбулаторная_карта" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Врачи__ID_специа__398D8EEE" Association="Self.FK__Врачи__ID_специа__398D8EEE">
+      <End Role="Специальности" EntitySet="Специальности" />
+      <End Role="Врачи" EntitySet="Врачи" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Лаборатор__ID_вр__6A30C649" Association="Self.FK__Лаборатор__ID_вр__6A30C649">
+      <End Role="Врачи" EntitySet="Врачи" />
+      <End Role="Лабораторные_исследования" EntitySet="Лабораторные_исследования" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Лекарстве__ID_вр__6383C8BA" Association="Self.FK__Лекарстве__ID_вр__6383C8BA">
+      <End Role="Врачи" EntitySet="Врачи" />
+      <End Role="Лекарственные_назначения" EntitySet="Лекарственные_назначения" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Медицинск__ID_вр__5DCAEF64" Association="Self.FK__Медицинск__ID_вр__5DCAEF64">
+      <End Role="Врачи" EntitySet="Врачи" />
+      <End Role="Медицинские_записи" EntitySet="Медицинские_записи" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Направлен__ID_вр__5070F446" Association="Self.FK__Направлен__ID_вр__5070F446">
+      <End Role="Врачи" EntitySet="Врачи" />
+      <End Role="Направления" EntitySet="Направления" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Направлен__ID_вр__5165187F" Association="Self.FK__Направлен__ID_вр__5165187F">
+      <End Role="Врачи" EntitySet="Врачи" />
+      <End Role="Направления" EntitySet="Направления" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Пользоват__ID_вр__6E01572D" Association="Self.FK__Пользоват__ID_вр__6E01572D">
+      <End Role="Врачи" EntitySet="Врачи" />
+      <End Role="Пользователи" EntitySet="Пользователи" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Приёмы__ID_врача__5629CD9C" Association="Self.FK__Приёмы__ID_врача__5629CD9C">
+      <End Role="Врачи" EntitySet="Врачи" />
+      <End Role="Приёмы" EntitySet="Приёмы" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Расписани__ID_вр__403A8C7D" Association="Self.FK__Расписани__ID_вр__403A8C7D">
+      <End Role="Врачи" EntitySet="Врачи" />
+      <End Role="Расписание" EntitySet="Расписание" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Приёмы__Код_диаг__5812160E" Association="Self.FK__Приёмы__Код_диаг__5812160E">
+      <End Role="Диагнозы_МКБ10" EntitySet="Диагнозы_МКБ10" />
+      <End Role="Приёмы" EntitySet="Приёмы" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Журнал_ау__ID_по__70DDC3D8" Association="Self.FK__Журнал_ау__ID_по__70DDC3D8">
+      <End Role="Пользователи" EntitySet="Пользователи" />
+      <End Role="Журнал_аудита" EntitySet="Журнал_аудита" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Приёмы__ID_кабин__571DF1D5" Association="Self.FK__Приёмы__ID_кабин__571DF1D5">
+      <End Role="Кабинеты" EntitySet="Кабинеты" />
+      <End Role="Приёмы" EntitySet="Приёмы" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Расписани__ID_ка__412EB0B6" Association="Self.FK__Расписани__ID_ка__412EB0B6">
+      <End Role="Кабинеты" EntitySet="Кабинеты" />
+      <End Role="Расписание" EntitySet="Расписание" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Лаборатор__ID_па__693CA210" Association="Self.FK__Лаборатор__ID_па__693CA210">
+      <End Role="Пациенты" EntitySet="Пациенты" />
+      <End Role="Лабораторные_исследования" EntitySet="Лабораторные_исследования" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Лаборатор__ID_пр__68487DD7" Association="Self.FK__Лаборатор__ID_пр__68487DD7">
+      <End Role="Приёмы" EntitySet="Приёмы" />
+      <End Role="Лабораторные_исследования" EntitySet="Лабораторные_исследования" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Лекарстве__ID_па__628FA481" Association="Self.FK__Лекарстве__ID_па__628FA481">
+      <End Role="Пациенты" EntitySet="Пациенты" />
+      <End Role="Лекарственные_назначения" EntitySet="Лекарственные_назначения" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Лекарстве__ID_пр__619B8048" Association="Self.FK__Лекарстве__ID_пр__619B8048">
+      <End Role="Приёмы" EntitySet="Приёмы" />
+      <End Role="Лекарственные_назначения" EntitySet="Лекарственные_назначения" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Медицинск__ID_па__5CD6CB2B" Association="Self.FK__Медицинск__ID_па__5CD6CB2B">
+      <End Role="Пациенты" EntitySet="Пациенты" />
+      <End Role="Медицинские_записи" EntitySet="Медицинские_записи" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Направлен__ID_па__4F7CD00D" Association="Self.FK__Направлен__ID_па__4F7CD00D">
+      <End Role="Пациенты" EntitySet="Пациенты" />
+      <End Role="Направления" EntitySet="Направления" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Приёмы__ID_напра__59063A47" Association="Self.FK__Приёмы__ID_напра__59063A47">
+      <End Role="Направления" EntitySet="Направления" />
+      <End Role="Приёмы" EntitySet="Приёмы" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Приёмы__ID_пацие__5535A963" Association="Self.FK__Приёмы__ID_пацие__5535A963">
+      <End Role="Пациенты" EntitySet="Пациенты" />
+      <End Role="Приёмы" EntitySet="Приёмы" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Пользователи_Роли" Association="Self.FK_Пользователи_Роли">
+      <End Role="Роли" EntitySet="Роли" />
+      <End Role="Пользователи" EntitySet="Пользователи" />
+    </AssociationSet>
+    <FunctionImport Name="EnterLabResult">
+      <Parameter Name="LabOrderID" Mode="In" Type="Int32" />
+      <Parameter Name="Result" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="OrderLabTest" ReturnType="Collection(Int32)">
+      <Parameter Name="PatientID" Mode="In" Type="Int32" />
+      <Parameter Name="AnalysisType" Mode="In" Type="String" />
+      <Parameter Name="AppointmentID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="RegisterPatient" ReturnType="Collection(Int32)">
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="FirstName" Mode="In" Type="String" />
+      <Parameter Name="MiddleName" Mode="In" Type="String" />
+      <Parameter Name="BirthDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Gender" Mode="In" Type="String" />
+      <Parameter Name="SNILS" Mode="In" Type="String" />
+      <Parameter Name="Phone" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ПоликлиникаModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ПоликлиникаModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

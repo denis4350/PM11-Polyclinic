@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3599a0f1350d4f7384086dcccb9c5c0c" Name="Diagram1" ZoomLevel="25">
+        <EntityTypeShape EntityType="ПоликлиникаModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Амбулаторная_карта" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Врачи" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Диагнозы_МКБ10" Width="1.5" PointX="8.25" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Журнал_аудита" Width="1.5" PointX="10.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Кабинеты" Width="1.5" PointX="8.25" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Лабораторные_исследования" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Лекарственные_назначения" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Медицинские_записи" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Направления" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Пациенты" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Пользователи" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Приёмы" Width="1.5" PointX="10.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Расписание" Width="1.5" PointX="8.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Роли" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.Специальности" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.View_Appointments_Doctor" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.View_LabOrders_Doctor" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.View_LabOrders_Pending" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.View_MedicalNotes_Doctor" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ПоликлиникаModel.View_Prescriptions_Doctor" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Амбулатор__ID_па__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Врачи__ID_специа__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Лаборатор__ID_вр__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Лекарстве__ID_вр__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Медицинск__ID_вр__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Направлен__ID_вр__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Направлен__ID_вр__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Пользоват__ID_вр__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Приёмы__ID_врача__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Расписани__ID_вр__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Приёмы__Код_диаг__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Журнал_ау__ID_по__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Приёмы__ID_кабин__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Расписани__ID_ка__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Лаборатор__ID_па__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Лаборатор__ID_пр__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Лекарстве__ID_па__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Лекарстве__ID_пр__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Медицинск__ID_па__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Направлен__ID_па__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Приёмы__ID_напра__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK__Приёмы__ID_пацие__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="ПоликлиникаModel.FK_Пользователи_Роли" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

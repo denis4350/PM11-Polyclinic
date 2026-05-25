@@ -1,0 +1,139 @@
+﻿<Window x:Class="PolyclinicApp.Views.BackupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Резервное копирование"
+        Height="620"
+        Width="980"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <Grid Background="#F5F5F5" Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Резервное копирование и восстановление БД"
+                   FontSize="26"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,20"/>
+
+        <materialDesign:Card Grid.Row="1"
+                             Padding="18"
+                             Margin="0,0,0,18">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="170"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="BackupPathTextBox"
+                         Grid.Row="0"
+                         Grid.Column="0"
+                         Margin="0,0,10,12"
+                         materialDesign:HintAssist.Hint="Путь для создания .bak файла"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <Button Grid.Row="0"
+                        Grid.Column="1"
+                        Content="Выбрать файл"
+                        Margin="0,0,10,12"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="ChooseBackupPathButton_Click"/>
+
+                <Button Grid.Row="0"
+                        Grid.Column="2"
+                        Content="Создать копию"
+                        Margin="0,0,0,12"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="CreateBackupButton_Click"/>
+
+                <TextBox x:Name="FolderPathTextBox"
+                         Grid.Row="1"
+                         Grid.Column="0"
+                         Margin="0,0,10,0"
+                         materialDesign:HintAssist.Hint="Папка для 6 резервных копий, например C:\SQLBackups"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Content="Папка по умолчанию"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="DefaultFolderButton_Click"/>
+
+                <Button Grid.Row="1"
+                        Grid.Column="2"
+                        Content="Создать 6 копий"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="CreateSixBackupsButton_Click"/>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Grid.Row="2"
+                             Padding="18"
+                             Margin="0,0,0,18">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="170"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="RestorePathTextBox"
+                         Grid.Column="0"
+                         Margin="0,0,10,0"
+                         materialDesign:HintAssist.Hint="Файл резервной копии для восстановления"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <Button Grid.Column="1"
+                        Content="Выбрать .bak"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="ChooseRestorePathButton_Click"/>
+
+                <Button Grid.Column="2"
+                        Content="Восстановить"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="RestoreBackupButton_Click"/>
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card Grid.Row="3"
+                             Padding="18">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Журнал операций"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,10"/>
+
+                <TextBox x:Name="LogTextBox"
+                         Grid.Row="1"
+                         IsReadOnly="True"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</Window>

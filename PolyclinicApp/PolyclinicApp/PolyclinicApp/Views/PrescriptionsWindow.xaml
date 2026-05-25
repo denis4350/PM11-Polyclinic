@@ -1,0 +1,196 @@
+﻿<Window x:Class="PolyclinicApp.Views.PrescriptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Лекарственные назначения"
+        Height="760"
+        Width="1280"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <Grid Background="#F5F5F5" Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Лекарственные назначения"
+                   FontSize="26"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,20"/>
+
+        <materialDesign:Card Grid.Row="1"
+                             Padding="18"
+                             Margin="0,0,0,18">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.8*"/>
+                    <ColumnDefinition Width="1.8*"/>
+                    <ColumnDefinition Width="1.3*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="AppointmentSearchTextBox"
+                         Grid.Row="0"
+                         Grid.Column="0"
+                         Margin="0,0,10,12"
+                         materialDesign:HintAssist.Hint="Поиск приёма по пациенту или врачу"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         TextChanged="AppointmentSearchTextBox_TextChanged"/>
+
+                <TextBlock x:Name="SelectedInfoTextBlock"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="4"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           Foreground="Gray"
+                           Text="Пациент и врач не выбраны"/>
+
+                <ComboBox x:Name="AppointmentComboBox"
+                          Grid.Row="1"
+                          Grid.Column="0"
+                          Margin="0,0,10,12"
+                          materialDesign:HintAssist.Hint="Приём"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectionChanged="AppointmentComboBox_SelectionChanged"/>
+
+                <ComboBox x:Name="MedicineComboBox"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Margin="0,0,10,12"
+                          materialDesign:HintAssist.Hint="Лекарство"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          IsEditable="True"/>
+
+                <ComboBox x:Name="DosageComboBox"
+                          Grid.Row="1"
+                          Grid.Column="2"
+                          Margin="0,0,10,12"
+                          materialDesign:HintAssist.Hint="Дозировка"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          IsEditable="True"/>
+
+                <ComboBox x:Name="PeriodComboBox"
+                          Grid.Row="1"
+                          Grid.Column="3"
+                          Margin="0,0,10,12"
+                          materialDesign:HintAssist.Hint="Период приёма"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          IsEditable="True"/>
+
+                <ComboBox x:Name="StatusComboBox"
+                          Grid.Row="1"
+                          Grid.Column="4"
+                          Margin="0,0,0,12"
+                          materialDesign:HintAssist.Hint="Статус"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"/>
+
+                <TextBox x:Name="SearchTextBox"
+                         Grid.Row="2"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="5"
+                         materialDesign:HintAssist.Hint="Поиск по лекарству, пациенту, врачу, дозировке или периоду"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         TextChanged="SearchTextBox_TextChanged"/>
+            </Grid>
+        </materialDesign:Card>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        Margin="0,0,0,12">
+
+                <Button Content="Добавить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="AddButton_Click"/>
+
+                <Button Content="Изменить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="EditButton_Click"/>
+
+                <Button Content="Удалить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="DeleteButton_Click"/>
+
+                <Button Content="Обновить"
+                        Width="130"
+                        Margin="20,0,10,0"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="RefreshButton_Click"/>
+
+                <Button Content="Очистить"
+                        Width="130"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="ClearButton_Click"/>
+            </StackPanel>
+
+            <ListView x:Name="PrescriptionsListView"
+                      Grid.Row="1"
+                      SelectionChanged="PrescriptionsListView_SelectionChanged">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID"
+                                        Width="55"
+                                        DisplayMemberBinding="{Binding PrescriptionId}"/>
+
+                        <GridViewColumn Header="Лекарство"
+                                        Width="190"
+                                        DisplayMemberBinding="{Binding Medicine}"/>
+
+                        <GridViewColumn Header="Дозировка"
+                                        Width="190"
+                                        DisplayMemberBinding="{Binding Dosage}"/>
+
+                        <GridViewColumn Header="Период"
+                                        Width="160"
+                                        DisplayMemberBinding="{Binding Period}"/>
+
+                        <GridViewColumn Header="Статус"
+                                        Width="120"
+                                        DisplayMemberBinding="{Binding StatusText}"/>
+
+                        <GridViewColumn Header="Пациент"
+                                        Width="220"
+                                        DisplayMemberBinding="{Binding PatientName}"/>
+
+                        <GridViewColumn Header="Врач"
+                                        Width="220"
+                                        DisplayMemberBinding="{Binding DoctorName}"/>
+
+                        <GridViewColumn Header="Приём"
+                                        Width="160"
+                                        DisplayMemberBinding="{Binding AppointmentText}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

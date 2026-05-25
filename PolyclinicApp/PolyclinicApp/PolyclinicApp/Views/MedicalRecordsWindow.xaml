@@ -1,0 +1,166 @@
+﻿<Window x:Class="PolyclinicApp.Views.MedicalRecordsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Медицинские записи"
+        Height="760"
+        Width="1280"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <Grid Background="#F5F5F5" Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Медицинские записи пациентов"
+                   FontSize="26"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,20"/>
+
+        <materialDesign:Card Grid.Row="1"
+                             Padding="18"
+                             Margin="0,0,0,18">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="AppointmentSearchTextBox"
+                         Grid.Row="0"
+                         Grid.Column="0"
+                         Margin="0,0,10,12"
+                         materialDesign:HintAssist.Hint="Поиск приёма по пациенту или врачу"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         TextChanged="AppointmentSearchTextBox_TextChanged"/>
+
+                <DatePicker x:Name="RecordDatePicker"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="0,0,10,12"
+                            materialDesign:HintAssist.Hint="Дата записи"
+                            Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+                <TextBlock x:Name="SelectedInfoTextBlock"
+                           Grid.Row="0"
+                           Grid.Column="2"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           Foreground="Gray"
+                           Text="Пациент и врач не выбраны"/>
+
+                <ComboBox x:Name="AppointmentComboBox"
+                          Grid.Row="1"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Margin="0,0,0,12"
+                          materialDesign:HintAssist.Hint="Приём"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectionChanged="AppointmentComboBox_SelectionChanged"/>
+
+                <TextBox x:Name="ContentTextBox"
+                         Grid.Row="2"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="3"
+                         materialDesign:HintAssist.Hint="Содержание медицинской записи"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         AcceptsReturn="True"
+                         Height="110"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"/>
+            </Grid>
+        </materialDesign:Card>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        Margin="0,0,0,12">
+
+                <Button Content="Добавить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="AddButton_Click"/>
+
+                <Button Content="Изменить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="EditButton_Click"/>
+
+                <Button Content="Удалить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="DeleteButton_Click"/>
+
+                <TextBox x:Name="SearchTextBox"
+                         Width="380"
+                         Margin="20,0,10,0"
+                         materialDesign:HintAssist.Hint="Поиск по пациенту, врачу или содержанию"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         TextChanged="SearchTextBox_TextChanged"/>
+
+                <Button Content="Обновить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="RefreshButton_Click"/>
+
+                <Button Content="Очистить"
+                        Width="130"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="ClearButton_Click"/>
+            </StackPanel>
+
+            <ListView x:Name="MedicalRecordsListView"
+                      Grid.Row="1"
+                      SelectionChanged="MedicalRecordsListView_SelectionChanged">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID"
+                                        Width="55"
+                                        DisplayMemberBinding="{Binding RecordId}"/>
+
+                        <GridViewColumn Header="Дата"
+                                        Width="150"
+                                        DisplayMemberBinding="{Binding DateText}"/>
+
+                        <GridViewColumn Header="Пациент"
+                                        Width="230"
+                                        DisplayMemberBinding="{Binding PatientName}"/>
+
+                        <GridViewColumn Header="Врач"
+                                        Width="230"
+                                        DisplayMemberBinding="{Binding DoctorName}"/>
+
+                        <GridViewColumn Header="Содержание"
+                                        Width="650"
+                                        DisplayMemberBinding="{Binding Content}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

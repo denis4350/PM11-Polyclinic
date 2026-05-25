@@ -1,0 +1,178 @@
+﻿<Window x:Class="PolyclinicApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Информационная система поликлиники"
+        Height="720"
+        Width="1100"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель -->
+        <Border Grid.Row="0"
+                Background="#1976D2"
+                Padding="24,0">
+
+            <DockPanel>
+                <TextBlock Text="Информационная система поликлиники"
+                           Foreground="White"
+                           FontSize="24"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           DockPanel.Dock="Left" />
+
+                <TextBlock x:Name="UserTextBlock"
+                           Foreground="White"
+                           FontSize="14"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           DockPanel.Dock="Right" />
+            </DockPanel>
+        </Border>
+
+        <!-- Главное меню -->
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
+
+            <Grid Margin="30">
+                <UniformGrid Columns="4">
+
+                    <Button x:Name="PatientsButton"
+                        Content="Пациенты"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="PatientsButton_Click" />
+
+                    <Button x:Name="DoctorsButton"
+                            Content="Врачи"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="DoctorsButton_Click" />
+
+                    <Button x:Name="AppointmentsButton"
+                        Content="Приёмы"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="AppointmentsButton_Click" />
+
+                    <Button x:Name="LaboratoryButton"
+                        Content="Лаборатория"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="LaboratoryButton_Click" />
+
+                    <Button x:Name="MedicalRecordsButton"
+                        Content="Мед. записи"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="MedicalRecordsButton_Click" />
+
+                    <Button x:Name="PrescriptionsButton"
+                        Content="Лекарственные назначения"
+                            Margin="8"
+                            FontSize="16"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="PrescriptionsButton_Click" />
+
+                    <Button x:Name="ReferralsButton"
+                        Content="Направления"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="ReferralsButton_Click" />
+
+                    <Button x:Name="ScheduleButton"
+                        Content="Расписание"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="ScheduleButton_Click" />
+
+                    <Button x:Name="CabinetsButton"
+                        Content="Кабинеты"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="CabinetsButton_Click" />
+
+                    <Button x:Name="SpecialitiesButton"
+                        Content="Специальности"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="SpecialitiesButton_Click" />
+
+                    <Button x:Name="DiagnosesButton"
+                        Content="Диагнозы МКБ-10"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="DiagnosesButton_Click" />
+
+                    <Button x:Name="UsersButton"
+                        Content="Пользователи"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="UsersButton_Click" />
+
+                    <Button x:Name="AuditButton"
+                        Content="Журнал аудита"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="AuditButton_Click" />
+
+                    <Button x:Name="ReportsButton"
+                        Content="Отчёты"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="ReportsButton_Click" />
+
+                    <Button x:Name="BackupButton"
+                        Content="Резервные копии"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Click="BackupButton_Click" />
+
+                    <Button x:Name="ExitButton"
+                        Content="Выход"
+                            Margin="12"
+                            FontSize="17"
+                            Height="95"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                            Click="ExitButton_Click" />
+
+                </UniformGrid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

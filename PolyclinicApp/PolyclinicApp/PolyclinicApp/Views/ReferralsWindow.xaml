@@ -1,0 +1,240 @@
+﻿<Window x:Class="PolyclinicApp.Views.ReferralsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Направления"
+        Height="760"
+        Width="1280"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <Grid Background="#F5F5F5" Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Медицинские направления"
+                   FontSize="26"
+                   FontWeight="SemiBold"
+                   Margin="0,0,0,20"/>
+
+        <materialDesign:Card Grid.Row="1"
+                             Padding="18"
+                             Margin="0,0,0,18">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.3*"/>
+                    <ColumnDefinition Width="1.3*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="PatientSearchTextBox"
+                         Grid.Row="0"
+                         Grid.Column="0"
+                         Margin="0,0,10,12"
+                         materialDesign:HintAssist.Hint="Поиск пациента"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         TextChanged="PatientSearchTextBox_TextChanged"/>
+
+                <TextBox x:Name="RefDoctorSearchTextBox"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         Margin="0,0,10,12"
+                         materialDesign:HintAssist.Hint="Поиск направившего врача"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         TextChanged="RefDoctorSearchTextBox_TextChanged"/>
+
+                <TextBox x:Name="TargetDoctorSearchTextBox"
+                         Grid.Row="0"
+                         Grid.Column="2"
+                         Margin="0,0,10,12"
+                         materialDesign:HintAssist.Hint="Поиск врача-получателя"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         TextChanged="TargetDoctorSearchTextBox_TextChanged"/>
+
+                <TextBlock x:Name="SelectedInfoTextBlock"
+                           Grid.Row="0"
+                           Grid.Column="3"
+                           Grid.ColumnSpan="3"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           Foreground="Gray"
+                           Text="Направление не выбрано"/>
+
+                <ComboBox x:Name="PatientComboBox"
+                          Grid.Row="1"
+                          Grid.Column="0"
+                          Margin="0,0,10,12"
+                          materialDesign:HintAssist.Hint="Пациент"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectionChanged="ComboBox_SelectionChanged"/>
+
+                <ComboBox x:Name="RefDoctorComboBox"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Margin="0,0,10,12"
+                          materialDesign:HintAssist.Hint="Врач направивший"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectionChanged="ComboBox_SelectionChanged"/>
+
+                <ComboBox x:Name="TargetDoctorComboBox"
+                          Grid.Row="1"
+                          Grid.Column="2"
+                          Margin="0,0,10,12"
+                          materialDesign:HintAssist.Hint="Врач к которому"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectionChanged="ComboBox_SelectionChanged"/>
+
+                <DatePicker x:Name="IssueDatePicker"
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            Margin="0,0,10,12"
+                            materialDesign:HintAssist.Hint="Дата выдачи"
+                            Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+                <DatePicker x:Name="ExpiryDatePicker"
+                            Grid.Row="1"
+                            Grid.Column="4"
+                            Margin="0,0,10,12"
+                            materialDesign:HintAssist.Hint="Срок действия"
+                            Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+                <ComboBox x:Name="StatusComboBox"
+                          Grid.Row="1"
+                          Grid.Column="5"
+                          Margin="0,0,0,12"
+                          materialDesign:HintAssist.Hint="Статус"
+                          Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"/>
+
+                <TextBox x:Name="NumberTextBox"
+                         Grid.Row="2"
+                         Grid.Column="0"
+                         Margin="0,0,10,0"
+                         materialDesign:HintAssist.Hint="Номер направления"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+                <TextBox x:Name="PurposeTextBox"
+                         Grid.Row="2"
+                         Grid.Column="1"
+                         Grid.ColumnSpan="5"
+                         materialDesign:HintAssist.Hint="Цель направления"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            </Grid>
+        </materialDesign:Card>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        Margin="0,0,0,12">
+
+                <Button Content="Добавить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="AddButton_Click"/>
+
+                <Button Content="Изменить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="EditButton_Click"/>
+
+                <Button Content="Удалить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Click="DeleteButton_Click"/>
+
+                <TextBox x:Name="SearchTextBox"
+                         Width="390"
+                         Margin="20,0,10,0"
+                         materialDesign:HintAssist.Hint="Поиск по номеру, пациенту, врачу или цели"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                         TextChanged="SearchTextBox_TextChanged"/>
+
+                <Button Content="Обновить"
+                        Width="130"
+                        Margin="0,0,10,0"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="RefreshButton_Click"/>
+
+                <Button Content="Очистить"
+                        Width="130"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="ClearButton_Click"/>
+            </StackPanel>
+
+            <ListView x:Name="ReferralsListView"
+                      Grid.Row="1"
+                      SelectionChanged="ReferralsListView_SelectionChanged">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID"
+                                        Width="55"
+                                        DisplayMemberBinding="{Binding ReferralId}"/>
+
+                        <GridViewColumn Header="Номер"
+                                        Width="120"
+                                        DisplayMemberBinding="{Binding Number}"/>
+
+                        <GridViewColumn Header="Дата выдачи"
+                                        Width="120"
+                                        DisplayMemberBinding="{Binding IssueDateText}"/>
+
+                        <GridViewColumn Header="Срок"
+                                        Width="120"
+                                        DisplayMemberBinding="{Binding ExpiryDateText}"/>
+
+                        <GridViewColumn Header="Статус"
+                                        Width="120"
+                                        DisplayMemberBinding="{Binding StatusText}"/>
+
+                        <GridViewColumn Header="Пациент"
+                                        Width="210"
+                                        DisplayMemberBinding="{Binding PatientName}"/>
+
+                        <GridViewColumn Header="Направил"
+                                        Width="210"
+                                        DisplayMemberBinding="{Binding RefDoctorName}"/>
+
+                        <GridViewColumn Header="К врачу"
+                                        Width="210"
+                                        DisplayMemberBinding="{Binding TargetDoctorName}"/>
+
+                        <GridViewColumn Header="Цель"
+                                        Width="340"
+                                        DisplayMemberBinding="{Binding Purpose}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

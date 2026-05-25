@@ -1,0 +1,20 @@
+﻿PolyclinicApp
+
+
+winexe
+C#
+.cs
+C:\Users\korya\OneDrive\Рабочий стол\COLLEGE\Произвоственная практика\ПМ11\PolyclinicApp\PolyclinicApp\PolyclinicApp\obj\Debug\
+PolyclinicApp
+none
+false
+DEBUG;TRACE
+C:\Users\korya\OneDrive\Рабочий стол\COLLEGE\Произвоственная практика\ПМ11\PolyclinicApp\PolyclinicApp\PolyclinicApp\App.xaml
+171091786649
+2-1223955081
+521502804471
+242010647193
+MainWindow.xaml;Views\AppointmentsWindow.xaml;Views\AuditWindow.xaml;Views\BackupWindow.xaml;Views\CabinetsWindow.xaml;Views\DiagnosesWindow.xaml;Views\DoctorsWindow.xaml;Views\LaboratoryWindow.xaml;Views\LoginWindow.xaml;Views\MedicalRecordsWindow.xaml;Views\PatientsWindow.xaml;Views\PrescriptionsWindow.xaml;Views\ReferralsWindow.xaml;Views\ReportsWindow.xaml;Views\ScheduleWindow.xaml;Views\SpecialitiesWindow.xaml;Views\UsersWindow.xaml;
+
+False
+
